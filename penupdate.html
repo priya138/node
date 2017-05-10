@@ -1,0 +1,174 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+    <title>retrieve</title>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+        
+        li {
+            float: left;
+        }
+        
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        
+        li a:hover {
+            background-color: #111;
+        }
+    </style>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script></head>
+<body bgcolor="#FFFFFF">
+     <ul>
+        <li><a class="active" href="insert.html">Create</a></li>
+        </div>
+        <li><a href="retrieve.html">Retrieve</a></li>
+        <li><a href="update.html">update</a></li>
+        <li><a href="delete.html">Delete</a></li>
+        <li><a href="deleteselected.html">Delete Selected</a></li>
+    </ul><br><div ng-app="myApp" ng-controller="ctrl3">
+        <br><br><br><br>
+        <div align="center">
+            <div style="width:300px; border: solid 1px #333333; " align="left">
+                <div style="background-color:#333333; color:#FFFFFF; padding:3px;"><b>retrieve</b></div>
+
+                <div style="margin:30px">
+
+                    <form >
+                        <label> pen Name  &nbsp;&nbsp;&nbsp;:</label><input ng-model="pname" class="box" /><br /><br />
+                        <input type="button" value="OK" ng-click="myFunc()" />
+                    </form>
+
+
+                </div>
+
+
+
+            </div>
+
+        </div><br><br><br><br><br>
+          <div align="center">
+        <div style="width:300px; border: solid 1px #333333; " align="left">
+            <div style="background-color:#333333; color:#FFFFFF; padding:3px;"><b>update</b></div>
+
+            <div style="margin:30px">
+
+    <label>pen Name  &nbsp;&nbsp;&nbsp;:</label><input ng-model="pame" class="box" /><br /><br />
+                    <label>pen quality  &nbsp;&nbsp;&nbsp;:</label><input ng-model="pquality" class="box" /><br/><br />
+                    <label>pen quantity  &nbsp;:</label><input ng-model="pquantity" class="box" /><br /><br />
+                    <label>pen cost &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :</label><input ng-model="pcost" class="box" /><br/><br />
+                    <label>Pen model  :</label><input ng-model="pmodel" class="box" /><br/><br />
+                     <input type="button" value="update" ng-click="myFunc1()" />
+                
+
+    </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('ctrl3', function($scope, $http) {
+             $scope.myFunc1 = function() {
+                alert("do you want to update?");
+                var pen name = $scope.pname;
+                var pen quality = $scope.pquality;
+                var pen quantity = $scope.pquantity;
+                var pen cost= $scope.pcost;
+                var pen model = $scope.pmodel;
+                var req = {
+                    method: 'POST',
+                    url: 'http://localhost:3000/update',
+                    headers: {
+                        'Content-Type': 'Application/json'
+                    },
+                    data: {
+                        pen name: pname,
+                        pen quality: pquality,
+                        pen quantity: pquantity,
+                        pen cost: pcost,
+                        pen model: pmodel
+                    }
+                }
+
+                $http(req)
+                    .then(function(response) {
+                        $scope.na = response.data;
+                                      alert($scope.na);
+
+                    });
+            };
+           
+
+            $scope.myFunc = function() {
+                alert("do you want to retrieve?");
+                $scope.records = [{
+                    " penName": " pen Name",
+                    "pen quality": "pen quality",
+                    "pen quantity": "pen quantity",
+                    "pen cost": "pen cost",
+                    "pen model": "pen model"
+                }]
+                var name = $scope.name;
+                var req = {
+                    method: 'POST',
+                    url: 'http://localhost:3000/retrieve',
+                    headers: {
+                        'Content-Type': 'Application/json'
+                    },
+                    data: {
+                       pname: pname,
+                    }
+                }
+
+                $http(req)
+                    .then(function(response) {
+
+                        $scope.pen name = response.data[0].pname;
+
+                        $scope.pen quality = response.data[0].pquality;
+
+                        $scope.pen quantity = response.data[0].pquantity;
+
+                        $scope.pen cost = response.data[0].pcost;
+
+
+                        $scope.pen model = response.data[0].pmodel;
+
+                        
+
+
+                    });
+            };
+
+        });
+
+    </script>
+
+    <footer>&copy;All Rights Reserved by Doddi Srikanth
+</footer>
+
+</body>
+
+</html>
